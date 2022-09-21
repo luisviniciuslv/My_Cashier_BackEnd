@@ -11,6 +11,6 @@ export class UserController {
     this._router.get('/', this.test);
   }
   private test = async (req: Request, res: Response) => {
-    res.send('test');
+    res.send('hello world');
   };
 }
