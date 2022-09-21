@@ -41,7 +41,7 @@ export class App {
       }
 
       const server = await mongoose.connect(
-        `${dbConsts.DATABASE_ADDRESS}/users`
+        `${dbConsts.DATABASE_ADDRESS}/MyCashier`
       );
 
       console.log(
