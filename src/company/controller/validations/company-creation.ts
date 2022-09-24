@@ -1,13 +1,8 @@
 import * as EmailValidator from 'email-validator';
-import { CompanyRequestDto } from '../dto/company-request-dto';
 import { InvalidPayloadException } from '../../exceptions/invalid-payload-exception';
+import { CompanyRequestDto } from '../dto/company-request-dto';
 
-const REQUIRED_FIELDS = [
-  'name',
-  'email',
-  'password',
-  'password_confirmation'
-];
+const REQUIRED_FIELDS = ['name', 'email', 'password', 'password_confirmation'];
 
 export const validateCompanyPayload = (company: CompanyRequestDto) => {
   for (let i = 0; i < REQUIRED_FIELDS.length; i++) {
