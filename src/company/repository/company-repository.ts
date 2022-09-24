@@ -1,5 +1,5 @@
-import { CompanyDocument } from "../documents/company";
-import Company from "../models/company";
+import { CompanyDocument } from '../documents/company';
+import Company from '../models/company';
 
 export class CompanyRepository {
   public create(company: CompanyDocument): Promise<CompanyDocument> {

@@ -9,6 +9,6 @@ export interface CompanyDocument extends Document {
   email: string;
   password: string;
   customers: CustomerDocument[];
-  sales:  SaleDocument[];
+  sales: SaleDocument[];
   products: ProductDocument[];
 }
