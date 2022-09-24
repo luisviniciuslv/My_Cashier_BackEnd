@@ -11,7 +11,9 @@ export const toDocument = (dto: CompanyRequestDto): CompanyDocument => {
   const company = {
     name: dto.name,
     email: dto.email,
-    password: dto.password
+    password: dto.password,
+    money_in_note: 0,
+    card_money: 0
   } as CompanyDocument;
 
   return company;

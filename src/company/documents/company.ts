@@ -11,4 +11,6 @@ export interface CompanyDocument extends Document {
   customers: CustomerDocument[];
   sales: SaleDocument[];
   products: ProductDocument[];
+  money_in_note: number;
+  card_money: number;
 }
