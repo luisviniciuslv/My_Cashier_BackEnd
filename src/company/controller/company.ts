@@ -26,16 +26,14 @@ export class CompanyController {
       const persistedCompany = await this.companyService.createCompany(
         toDocument(company)
       );
-      res
-        .location(`/api/company/${persistedCompany._id}`)
-        .sendStatus(201);
+      res.location(`/api/company/${persistedCompany._id}`).sendStatus(201);
     } catch (error) {
       if (error instanceof CompanyEmailAlreadyExistsException) {
         res.status(422).send(error.message);
         return;
       }
-      
-      if(error instanceof InvalidPayloadException) {
+
+      if (error instanceof InvalidPayloadException) {
         res.status(422).send(error.message);
         return;
       }
