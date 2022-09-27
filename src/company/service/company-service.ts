@@ -1,6 +1,7 @@
+import { encryptStr } from '../../functions/encrypt';
 import { CompanyDocument } from '../documents/company';
 import { CompanyEmailAlreadyExistsException } from '../exceptions/company-email-already-exists-exception';
-import { encryptStr } from '../../functions/encrypt';
+import { comparePlainText } from './../../functions/encrypt';
 import { CompanyRepository } from './../repository/company-repository';
 
 export class CompanyService {
@@ -23,5 +24,19 @@ export class CompanyService {
     } as CompanyDocument;
 
     return this.CompanyRepository.create(companyHashPass);
+  }
+
+  public async executeLogin(email: string, password: string) {
+    const foundCompany = await this.CompanyRepository.findByEmail(email);
+    if (!foundCompany) {
+      throw new Error('Invalid e-mail or password!');
+    }
+
+    const isValidPassword = await comparePlainText(
+      password,
+      foundCompany.password
+    );
+    console.log(isValidPassword)
+    return isValidPassword;
   }
 }
