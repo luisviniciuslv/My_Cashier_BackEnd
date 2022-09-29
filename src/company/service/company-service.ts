@@ -3,7 +3,7 @@ import { CompanyDocument } from '../documents/company';
 import { CompanyEmailAlreadyExistsException } from '../exceptions/company-email-already-exists-exception';
 import { comparePlainText } from './../../functions/encrypt';
 import { CompanyRepository } from './../repository/company-repository';
-
+import { UserNotFoundException } from '../../exceptions/user-not-found-exception';
 export class CompanyService {
   private CompanyRepository = new CompanyRepository();
 
@@ -25,7 +25,14 @@ export class CompanyService {
 
     return this.CompanyRepository.create(companyHashPass);
   }
+  public findById = async (id: string) => {
+    const user = await this.CompanyRepository.findById(id);
+    if (!user) {
+      throw new UserNotFoundException(`user not found: ${id}`);
+    }
 
+    return user;
+  };
   public async executeLogin(email: string, password: string) {
     const foundCompany = await this.CompanyRepository.findByEmail(email);
     if (!foundCompany) {
