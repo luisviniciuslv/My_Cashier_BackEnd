@@ -59,10 +59,10 @@ export class CompanyController {
         generateJwt(companyCredentials.email, (error, jwtToken) => {
           if (error != null) {
             throw new AcessTokenException('Could not generate JWT token');
-            
-            return
+
+            return;
           } else {
-            res.status(200).send({accessToken: jwtToken});
+            res.status(200).send({ accessToken: jwtToken });
           }
         });
       } else {

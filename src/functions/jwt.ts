@@ -11,10 +11,7 @@ export const generate = (email: any, callback: GenerateJwtCallback) => {
   jwt.sign(payload, 'minha_chave', callback);
 };
 
-export const validate = (
-  jwtToken: string,
-  callback: () => void
-) => {
+export const validate = (jwtToken: string, callback: () => void) => {
   jwt.verify(jwtToken, 'minha_chave', (error) => {
     if (error != null) {
       throw new InvalidTokenException('Could not validate token');
