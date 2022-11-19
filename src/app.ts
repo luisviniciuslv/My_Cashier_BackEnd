@@ -3,7 +3,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import mongoose from 'mongoose';
 import dbConsts from './constants/database';
-import { CompanyController } from './company/controller/company';
+import { CompanyController } from './company/controller/company-controller';
 import { DatabaseUriNotFoundException } from './exceptions/database-uri-not-found-exception';
 
 export class App {
