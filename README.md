@@ -9,7 +9,7 @@ My Cashier vai ajudar empresas a terem uma melhor organização no seu caixa, co
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
 
-![](https://media.discordapp.net/attachments/751139056414490676/1043324634235420764/image.png?width=966&height=683#vitrinedev)
+![](https://cdn.discordapp.com/attachments/902225085245563021/1044002215804813432/Screenshot_1.png#vitrinedev)
 
 ## Detalhes do projeto
 
