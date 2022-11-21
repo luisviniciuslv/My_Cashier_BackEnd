@@ -1,4 +1,4 @@
-# My Cashier
+# My Cashier Back-End
 
 My Cashier vai ajudar empresas a terem uma melhor organização no seu caixa, com informações e graficos importantes para seu desenvolvimento
 
