@@ -1,3 +1,4 @@
+import { CompanyController } from './company/controller/company-controller';
 const JSON_MOCK = { limit: '50mb' };
 const URL_ENCODED_MOCK = { limit: '50mb', extended: true };
 const CORS_RETURN_MOCK = 'cors return';
@@ -12,8 +13,8 @@ const mongoDbConnectionMock = jest.fn(() => ({
   connection: { name: 'teste-connection-name' }
 }));
 
-import { App } from './app';
 import dotenv from 'dotenv';
+import { App } from './app';
 dotenv.config();
 
 const DATABASE_ADDRESS = process.env.DATABASE_ADDRESS;
@@ -21,11 +22,11 @@ const DATABASE_ADDRESS = process.env.DATABASE_ADDRESS;
 jest.mock('express', () => () => expressMock);
 jest.mock('body-parser', () => bodyParserMock);
 jest.mock('cors', () => corsMock);
+jest.mock('./company/controller/company-controller');
 jest.mock('mongoose', () => ({
   ...jest.requireActual('mongoose'),
   connect: mongoDbConnectionMock
 }));
-jest.mock('./company/controller/company');
 
 describe('App tests', () => {
   test('should create and call setConfig method properly', () => {
