@@ -4,7 +4,7 @@ My Cashier vai ajudar empresas a terem uma melhor organização no seu caixa, co
 
 | :placard: Vitrine.Dev |                                               |
 | --------------------- | --------------------------------------------- |
-| :sparkles: Nome       | **My Cashier Back-end**                     |
+| :sparkles: Nome       | **My Cashier Back-End**                     |
 | :label: Tecnologias   | Node, Express, jest, mongodb |
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
