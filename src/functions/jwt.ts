@@ -1,6 +1,6 @@
 import { InvalidTokenException } from './../company/exceptions/invalid-token-exception';
 import jwt from 'jsonwebtoken';
-
+import SECRET from './../constants/jwt';
 export type GenerateJwtCallback = (
   error: Error | null,
   encoded: string | undefined
@@ -8,14 +8,16 @@ export type GenerateJwtCallback = (
 
 export const generate = (email: any, callback: GenerateJwtCallback) => {
   const payload = { email };
-  jwt.sign(payload, 'minha_chave', callback);
+  jwt.sign(payload, SECRET, callback);
 };
 
-export const validate = (jwtToken: string, callback: () => void) => {
-  jwt.verify(jwtToken, 'minha_chave', (error) => {
-    if (error != null) {
-      throw new InvalidTokenException('Could not validate token');
-    }
-    callback();
+export const verifyJWT = (req, res, next) => {
+  const token = req.headers['x-access-token'];
+  if (!token)
+    return res.status(401).json({ auth: false, message: 'No token provided.' });
+  jwt.verify(token, SECRET, (err, decoded) => {
+    if (err) return res.status(401).end();
+    req.userId = decoded.id;
+    next();
   });
 };

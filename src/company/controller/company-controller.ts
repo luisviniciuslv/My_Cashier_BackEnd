@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import { UserNotFoundException } from '../../exceptions/user-not-found-exception';
 import {
   generate as generateJwt,
-  validate as validateJwt
+  verifyJWT as validateJwt
 } from '../../functions/jwt';
 import { AcessTokenException } from '../exceptions/acess-token-exception';
 import { CompanyEmailAlreadyExistsException } from '../exceptions/company-email-already-exists-exception';
@@ -25,7 +25,7 @@ export class CompanyController {
   constructor() {
     this._router.post('/', this.create);
     this._router.post('/login', this.login);
-    this._router.get('/:id', this.getById);
+    this._router.get('/:id', validateJwt, this.getById);
   }
 
   private create = async (req: Request, res: Response) => {
@@ -55,31 +55,23 @@ export class CompanyController {
 
   private getById = async (req: Request, res: Response) => {
     const token = req.headers.authorization || '';
+    const id = req.params.id;
     try {
-      validateJwt(token, async () => {
-        const id = req.params.id;
-
-        try {
-          validateSearchParams({ id });
-          const company = await this.companyService.findById(id);
-          res.status(200).send(company);
-        } catch (error) {
-          if (error instanceof UserNotFoundException) {
-            res.status(404).send(error.message);
-            return;
-          }
-          if (error instanceof InvalidSearchParamsExeption) {
-            res.status(400).send(error.message);
-            return;
-          }
-          res.status(500).send('Internal Server Error');
-        }
-      });
+      validateSearchParams({ id });
+      const company = await this.companyService.findById(id);
+      res.status(200).send(company);
     } catch (error) {
-      res.sendStatus(401);
+      if (error instanceof UserNotFoundException) {
+        res.status(404).send(error.message);
+        return;
+      }
+      if (error instanceof InvalidSearchParamsExeption) {
+        res.status(400).send(error.message);
+        return;
+      }
+      res.status(500).send('Internal Server Error');
     }
   };
-
   private login = async (req: Request, res: Response) => {
     const companyCredentials: CompanyCredentialsDto = req.body;
     try {
@@ -93,8 +85,6 @@ export class CompanyController {
         generateJwt(companyCredentials.email, (error, jwtToken) => {
           if (error != null) {
             throw new AcessTokenException('Could not generate JWT token');
-
-            return;
           } else {
             res.status(200).send({ accessToken: jwtToken });
           }
@@ -103,7 +93,12 @@ export class CompanyController {
         res.sendStatus(400);
       }
     } catch (error) {
-      res.status(500).send('Internal Server Error');
+      if(error instanceof InvalidPayloadException){
+        res.status(500).send(error.message);
+        return;
+      }else{
+        res.status(500).send('Internal Server Error');
+      }
     }
   };
 }

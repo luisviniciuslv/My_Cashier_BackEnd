@@ -43,7 +43,6 @@ export class CompanyService {
       password,
       foundCompany.password
     );
-    console.log(isValidPassword);
     return isValidPassword;
   }
 }
