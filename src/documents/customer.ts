@@ -1,9 +1,9 @@
-import { Document, ObjectId } from 'mongoose';
+import mongoose, { Document, ObjectId } from 'mongoose';
 
 export interface CustomerDocument extends Document {
-  _id: ObjectId;
+  _id: mongoose.Types.ObjectId;
   name: string;
   phone: string;
   email: string;
-  purchases: ObjectId[];
+  purchases: mongoose.Types.ObjectId[];
 }
