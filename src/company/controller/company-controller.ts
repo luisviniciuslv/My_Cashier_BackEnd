@@ -54,7 +54,6 @@ export class CompanyController {
   };
 
   private getById = async (req: Request, res: Response) => {
-    const token = req.headers.authorization || '';
     const id = req.params.id;
     try {
       validateSearchParams({ id });

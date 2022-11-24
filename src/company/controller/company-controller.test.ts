@@ -18,6 +18,6 @@ describe('Company Controller Tests', () => {
     );
 
     expect(ROUTER_MOCK.get).toHaveBeenCalledTimes(1);
-    expect(ROUTER_MOCK.get).toHaveBeenCalledWith('/:id', expect.any(Function));
+    expect(ROUTER_MOCK.get).toHaveBeenCalledWith('/:id', expect.any(Function), expect.any(Function));
   });
 });
