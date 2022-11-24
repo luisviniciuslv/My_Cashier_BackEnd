@@ -6,8 +6,7 @@ import {
   createCompanyMock,
   COMPANY_EMAIL_MOCK,
   COMPANY_MOCK,
-  COMPANY_PASSWORD_MOCK,
-  ID_MOCK
+  COMPANY_PASSWORD_MOCK
 } from './company-service.mock';
 
 jest.mock('../repository/company-repository', () => ({

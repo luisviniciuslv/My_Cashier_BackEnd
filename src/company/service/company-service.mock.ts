@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { SaleDocument } from '../../documents/sale';
 import { ProductDocument } from '../../documents/product';
 
-export const ID_MOCK: mongoose.Types.ObjectId = new mongoose.Types.ObjectId();
+const ID_MOCK: mongoose.Types.ObjectId = new mongoose.Types.ObjectId();
 
 export const PRODUCT_MOCK = {
   name: 'creme',
