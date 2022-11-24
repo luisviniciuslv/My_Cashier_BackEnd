@@ -28,7 +28,7 @@ export class CompanyService {
   public findById = async (id: string) => {
     const user = await this.companyRepository.findById(id);
     if (!user) {
-      throw new CompanyNotFoundException(`user not found: ${id}`);
+      throw new CompanyNotFoundException(`Company not found: ${id}`);
     }
 
     return user;
