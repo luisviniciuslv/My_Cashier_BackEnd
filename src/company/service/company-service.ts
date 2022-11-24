@@ -3,14 +3,14 @@ import { CompanyDocument } from '../documents/company';
 import { CompanyEmailAlreadyExistsException } from '../exceptions/company-email-already-exists-exception';
 import { comparePlainText } from './../../functions/encrypt';
 import { CompanyRepository } from './../repository/company-repository';
-import { UserNotFoundException } from '../../exceptions/user-not-found-exception';
+import { CompanyNotFoundException } from '../exceptions/company-not-found-exceptions';
 export class CompanyService {
-  private CompanyRepository = new CompanyRepository();
+  private companyRepository = new CompanyRepository();
 
   public async createCompany(
     company: CompanyDocument
   ): Promise<CompanyDocument> {
-    const foundCompany = await this.CompanyRepository.findByEmail(
+    const foundCompany = await this.companyRepository.findByEmail(
       company.email.toLocaleLowerCase()
     );
     if (foundCompany) {
@@ -23,18 +23,18 @@ export class CompanyService {
       password: await encryptStr(company.password)
     } as CompanyDocument;
 
-    return this.CompanyRepository.create(companyHashPass);
+    return this.companyRepository.create(companyHashPass);
   }
   public findById = async (id: string) => {
-    const user = await this.CompanyRepository.findById(id);
+    const user = await this.companyRepository.findById(id);
     if (!user) {
-      throw new UserNotFoundException(`user not found: ${id}`);
+      throw new CompanyNotFoundException(`user not found: ${id}`);
     }
 
     return user;
   };
   public async executeLogin(email: string, password: string) {
-    const foundCompany = await this.CompanyRepository.findByEmail(email);
+    const foundCompany = await this.companyRepository.findByEmail(email);
     if (!foundCompany) {
       throw new Error('Invalid e-mail or password!');
     }
