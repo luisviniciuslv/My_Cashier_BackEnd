@@ -1,4 +1,3 @@
-import { CompanyController } from './company/controller/company-controller';
 const JSON_MOCK = { limit: '50mb' };
 const URL_ENCODED_MOCK = { limit: '50mb', extended: true };
 const CORS_RETURN_MOCK = 'cors return';
