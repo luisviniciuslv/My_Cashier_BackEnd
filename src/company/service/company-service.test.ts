@@ -4,17 +4,10 @@ import { CompanyNotFoundException } from '../exceptions/company-not-found-except
 import { CompanyService } from './company-service';
 import {
   createCompanyMock,
-  CARD_MONEY_MOCK,
   COMPANY_EMAIL_MOCK,
   COMPANY_MOCK,
-  COMPANY_NAME_MOCK,
   COMPANY_PASSWORD_MOCK,
-  CUSTOMERS_MOCK,
-  CUSTOMER_MOCK,
-  MONEY_MOCK,
-  PRODUCT_MOCK,
-  SALES_MOCK,
-  SALE_MOCK
+  ID_MOCK
 } from './company-service.mock';
 
 jest.mock('../repository/company-repository', () => ({
@@ -49,5 +42,23 @@ describe('Company service tests', () => {
       expect(error).toBeInstanceOf(CompanyEmailAlreadyExistsException);
       expect(error.message).toBe('Invalid e-mail: already exists!');
     }
+  });
+  test('should throw UserNotFoundException when user is not found by id', async () => {
+    const companyService = new CompanyService();
+    const companyId = '123456';
+
+    try {
+      await companyService.findById(companyId);
+      fail();
+    } catch (error) {
+      expect(error).toBeInstanceOf(CompanyNotFoundException);
+      expect(error.message).toBe(`Company not found: ${companyId}`);
+    }
+  });
+  test('should return a valid user when find user by id', async () => {
+    const companyService = new CompanyService();
+
+    const company = await companyService.findById('123')
+    expect(company).toStrictEqual(COMPANY_MOCK);
   });
 });
